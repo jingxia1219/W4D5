@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+ source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -40,6 +40,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers'
+  gem 'bcrypt'
 end
 
 group :development do
@@ -53,7 +54,7 @@ group :development do
   gem 'pry-rails'
   gem 'binding_of_caller'
   gem 'better_errors'
-  gem 'bcrypt'
+
 end
 
 group :test do
