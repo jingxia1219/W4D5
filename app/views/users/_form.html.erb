@@ -1,0 +1,40 @@
+<%  prefill = {}
+    if type == :new
+      action =  users_url
+      button_text = 'Create User'
+      prefill[:username] = ""
+      prefill[:email] = ""
+    else
+      action = user_url(@user)
+      button_text = 'Update User'
+      prefill[:username] = @user.username
+      prefeill[:email] = @user.email
+    end %>
+
+  <body>
+
+    <% if flash[:errors] %>
+    <%flash[:errors].each do |error| %>
+
+    <h4><%= error %></h4>
+    <% end %>
+    <% end %>
+
+    <form action="<%= action %>" method="post">
+      <%= auth_token %>
+
+      <% if type == :edit %>
+        <input type="hidden" name="_method" value="patch">
+      <% end %>
+      <label for="username">Username:</label>
+      <input id='username' type="text" name="user[username]" value="<%= prefill[:username] %>">
+      <br>
+      <label for="email">Email:</label>
+      <input id='email' type="text" name="user[email]" value="<%= prefill[:email] %>">
+      <br>
+      <label for="password">Password</label>
+      <input id='password' type="password" name="user[password]">
+      <br>
+      <button  type="submit"><%= button_text %></button>
+    </form>
+  </body>

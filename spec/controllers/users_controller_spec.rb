@@ -32,17 +32,29 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it 'redirects the user to all user page' do
-    end 
+      post :create, params: { user: { username: 'cba', password:'abccba', email:'cba.com' } }
+      expect(response).to redirect_to(user_url(User.last))
+    end
 
 
   end
 
   describe 'GET #edit' do
-    it 'renders the edit user page'
+    it 'renders the edit user page' do
+      # patch :edit, params: { user: { username: 'cba', password:'abccba', email:'cba.com' } }
+      expect(response).to render_template('edit')
+    end
   end
 
   describe 'PATCH #update' do
-    it 'update the user information'
+    it 'update the user information'do
+
+    user = User.create(username: 'abc', password:'abccba', email:'abc.com')
+    patch :update, params: { user: { username: 'cba', password:'abccba', email:'cba.com' } }
+    expect(user.username).to eq('cba')
+    expect(user.email).to eq('cba.com')
+    end
+
     it 'redirects to the user show page'
   end
 
