@@ -13,8 +13,7 @@ RSpec.describe UsersController, type: :controller do
     context 'with valid params' do
       it 'signs up the user' do
         post :create, params: { user: { username: 'abc', password: 'abccba', email: 'abc.com'}}
-        expect(response).to redirect_to(user_url(User.last))
-        expect(response).to have_http_status(200)
+        expect(User.all).to include(User.last)
       end
     end
 
@@ -28,13 +27,12 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it 'logs the user in' do
-      post :create, params: { user: { username: ''} }
-      user = User.new(username: 'abc', password:'abccba', email:'abc.com')
-      expect(User).to receive(:log_in).with(user)
-      User.log_in(user)
+      post :create, params: { user: { username: 'cba', password:'abccba', email:'cba.com' } }
+      expect(session[:session_token]).to eq(User.last.session_token)
     end
 
-    it 'redirects the user to all user page'
+    it 'redirects the user to all user page' do
+    end 
 
 
   end
